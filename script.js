@@ -45,3 +45,158 @@ root.appendChild(screen);
 
 
 // Make the character move and jump!
+
+// Param
+const motionSpeed = 5;
+counter = 10;
+interval = null;
+moveTime = 0;
+
+// Keys capture
+document.addEventListener('keydown', (event) => {
+    const presskey = event.key;
+  
+    if (presskey === 'ArrowRight') {
+    //   console.log("droite")
+        return MoveRight();
+    };
+
+    if (presskey === 'ArrowLeft') {
+        // console.log("gauche")
+        return Moveleft();
+    };
+
+    if (presskey === 'ArrowUp') {
+        // console.log("haut")
+        return MoveJump();
+    };
+
+    if (presskey === 'ArrowDown') {
+        return startTic();
+    };
+});
+
+// Horizontal moves
+function MoveRight() {
+    let persoPosition = +perso.style.left.replace('px','');
+    if (zoneLimit(persoPosition) == false) {
+        return perso.style.left = '665px'
+    } else {
+        persoPosition = persoPosition + motionSpeed;
+        perso.style.left = persoPosition + 'px';
+    }
+};
+
+function Moveleft() {
+    let persoPosition = +perso.style.left.replace('px','');
+    if (zoneLimit(persoPosition) == false) {
+        return perso.style.left = '5px'
+    } else {
+        persoPosition = persoPosition - motionSpeed;
+        perso.style.left = persoPosition + 'px';
+    }
+};
+
+// Confine zone
+function zoneLimit(persoPosition) {
+    if (persoPosition <= 0 | persoPosition >= 670) {
+        console.log('Bong !');
+        return false;
+    } else {
+        return true;
+    }
+};
+
+// Vertical moves
+// function MoveJump() {
+//     let persoVertiOrigin = +perso.style.bottom.replace('px','');
+//     let persoVertiPosition = +perso.style.bottom.replace('px','');
+
+//     if (persoVertiPosition = 12) {
+//         while (persoVertiPosition < 150) {
+//             console.log(persoVertiPosition);
+//             persoVertiPosition = persoVertiPosition + motionSpeed;
+//             var jump = setInterval(perso.style.bottom = persoVertiPosition + 'px', 1000);
+//         }
+//     }
+// }
+
+
+// function MoveJump() {
+//     let persoVertiOrigin = +perso.style.bottom.replace('px','');
+//     let persoVertiPosition = +perso.style.bottom.replace('px','');
+//     jump = setInterval(VerticalMoves(persoVertiPosition, true), 1000);
+
+//     if (persoVertiPosition = 12) {
+//         while (persoVertiPosition < 150) {
+//             console.log(persoVertiPosition);
+//             jump;
+//         }
+//     }
+// }
+
+function MoveJump() {
+    let persoVertiOrigin = +perso.style.bottom.replace('px','');
+    let persoVertiPosition = +perso.style.bottom.replace('px','');
+    console.log("persoVertiPosition : " + persoVertiPosition + " - persoVertiOrigin : " + persoVertiOrigin)
+
+    if (persoVertiPosition = persoVertiOrigin) {
+        truc = startTic(15);
+
+        // while (counter < 150) {
+            console.log(">>>>>>>>>>>" + truc);
+        //     persoVertiPosition = persoVertiPosition + (motionSpeed * counter);
+        //     perso.style.bottom = persoVertiPosition
+        // };
+    };
+}
+
+function VerticalMoves(persoVertiPosition, direction){
+    if (direction = true) {
+        persoVertiPosition += motionSpeed;
+        perso.style.bottom = persoVertiPosition + 'px';
+        console.log(persoVertiPosition)
+    } else {
+        persoVertiPosition -= motionSpeed;
+        perso.style.bottom = persoVertiPosition + 'px';
+        console.log(persoVertiPosition)
+    }
+}
+
+
+// proto
+
+// function proto() {
+//     interval = setInterval(console.log("ok"), 500);
+// }
+
+// interval = setInterval(function() {console.log("ok")}, 500);
+
+
+// function tic(){
+//     counter++;
+//     console.log("counter : " + counter);
+//     return counter
+// };
+
+function tic(){
+    counter--;
+    if (counter == 0) {
+        stopTic();
+    } else {
+        moveTime = counter;
+    };
+};
+
+function startTic(time) {
+    counter = time;
+    interval = setInterval(tic, 1000);
+    // return interval
+};
+
+function stopTic() {
+    clearInterval(interval)
+};
+
+// function consoleOk(messsage){console.log(messsage)};
+// interval = setInterval(consoleOk("ok"), 500);
